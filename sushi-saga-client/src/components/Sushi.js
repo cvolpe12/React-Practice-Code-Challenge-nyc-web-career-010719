@@ -7,10 +7,16 @@ class Sushi extends React.Component {
   }
 
   eatSushi = () => {
-    this.setState({
-      eaten: true
-    })
-    this.props.eatSushi()
+    if (this.props.hasMoney >= this.props.sushi.price) {
+      this.setState({
+        eaten: true
+      })
+      this.props.eatSushi(this.props.sushi.price)
+    } else {
+      alert("You do not have enough money")
+      null
+    }
+
   }
 
   render() {
@@ -26,7 +32,7 @@ class Sushi extends React.Component {
           }
         </div>
         <h4 className="sushi-details">
-          {this.props.sushi.name} - ${this.props.sushi.price}
+          {this.props.sushi.name} - {this.props.sushi.id} - ${this.props.sushi.price}
         </h4>
       </div>
     )

@@ -11,16 +11,24 @@ class SushiContainer extends React.Component {
 
   renderSushi = () => {
     return this.props.sushi.slice(this.state.first, this.state.second).map(sush => {
-      return <Sushi sushi={sush} eatSushi={this.props.eatSushi} />
+      return <Sushi key={sush.id} sushi={sush} eatSushi={this.props.eatSushi} hasMoney={this.props.hasMoney}/>
     })
   }
 
   moreSushi = (e) => {
     e.preventDefault()
-    this.setState((prevState) => {
-      first: prevState.first + 4,
-      second: prevState.second + 8
-    })
+    if (this.state.first === 96) {
+      this.setState({
+        first: 0,
+        second: 4
+      })
+    } else {
+      this.setState((prevState) => ({
+        first: prevState.first + 4,
+        second: prevState.second + 4,
+        })
+      )
+    }
   }
 
   render() {
@@ -28,7 +36,7 @@ class SushiContainer extends React.Component {
       <Fragment>
         <div className="belt">
           {this.renderSushi()}
-          <MoreButton moreSushi={this.moreSushi}/>
+          <MoreButton moreSushi={this.moreSushi} />
         </div>
       </Fragment>
     )
